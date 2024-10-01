@@ -58,4 +58,4 @@ def create_overlapping_grids(screenshot_folder, grid_folder, grid_size=(3, 3), o
 
 
 # Set the grid size and overlap images
-create_overlapping_grids(screenshot_folder, grid_folder, grid_size=(3, 3), overlap=4)
+create_overlapping_grids(screenshot_folder, grid_folder, grid_size=(3, 3), overlap=0)
