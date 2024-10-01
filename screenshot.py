@@ -1,6 +1,14 @@
 import cv2
 import os
 import numpy as np
+from dotenv import load_dotenv
+
+load_dotenv()
+video_path = os.getenv("VIDEO_PATH")
+output_folder=os.getenv("OUTPUT_FOLDER")
+
+
+# set the interval to capture screenshots (interval is seconds), in this example, it is 0.5 seconds
 
 def capture_screenshots(video_path, output_folder, interval=0.5):
     # Create output folder if it doesn't exist
@@ -35,9 +43,8 @@ def capture_screenshots(video_path, output_folder, interval=0.5):
 
     print(f"Captured {screenshot_count} screenshots.")
 
-# Example usage
-video_path = "C:/Users/nicol/Downloads/Gen48/The Room/The Room _ Runway Gen_48 3rd Edition.mp4"
-output_folder = "C:/Users/nicol/Downloads/Gen48/The Room/Screenshots"
+
+
 capture_screenshots(video_path, output_folder)
 
 

@@ -6,14 +6,19 @@ from dotenv import load_dotenv
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
+# set your grid path, which can be the same as the grid_folder in image_grids.py
+grid_path = os.getenv("GRID_PATH")
+
+
+
 client = OpenAI(api_key=api_key)
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
 
-def analyze_grid_pictures(folder_path):
-    grid_files = [f for f in os.listdir(folder_path) if f.endswith(('.jpg', '.png'))]
+def analyze_grid_pictures(grid_path):
+    grid_files = [f for f in os.listdir(grid_path) if f.endswith(('.jpg', '.png'))]
     
     batch_size = 5  # Adjust based on API limitations and your needs
     results = []
@@ -37,7 +42,7 @@ def analyze_grid_pictures(folder_path):
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": f"data:image/jpeg;base64,{encode_image(os.path.join(folder_path, filename))}",
+                            "url": f"data:image/jpeg;base64,{encode_image(os.path.join(grid_path, filename))}",
                             "detail": "high"
                         }
                     } for filename in batch
@@ -56,10 +61,11 @@ def analyze_grid_pictures(folder_path):
 
     return "\n\n".join(results)
 
-# Usage
-folder_path = "C:/Users/nicol/Downloads/Gen48/The Room/Grids2"
+
+
+
 try:
-    analysis = analyze_grid_pictures(folder_path)
+    analysis = analyze_grid_pictures(grid_path)
     print("Analysis complete. Results:")
     print(analysis)
 except Exception as e:

@@ -1,13 +1,20 @@
 import os
 from PIL import Image
+from dotenv import load_dotenv
 
-def create_overlapping_grids(input_folder, output_folder, grid_size=(3, 3), overlap=0):
+load_dotenv()
+screenshot_folder = os.getenv("SCREENSHOT_FOLDER")
+grid_folder=os.getenv("GRID_FOLDER")
+
+
+
+def create_overlapping_grids(screenshot_folder, grid_folder, grid_size=(3, 3), overlap=0):
     # Ensure output folder exists
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
+    if not os.path.exists(grid_folder):
+        os.makedirs(grid_folder)
 
     # Get list of image files
-    image_files = sorted([f for f in os.listdir(input_folder) if f.endswith(('.png', '.jpg', '.jpeg'))])
+    image_files = sorted([f for f in os.listdir(screenshot_folder) if f.endswith(('.png', '.jpg', '.jpeg'))])
 
     # Calculate the number of images per grid and step size
     images_per_grid = grid_size[0] * grid_size[1]
@@ -18,7 +25,7 @@ def create_overlapping_grids(input_folder, output_folder, grid_size=(3, 3), over
         grid_images = image_files[start_index:end_index]
 
         # Open images and resize them
-        images = [Image.open(os.path.join(input_folder, img)) for img in grid_images]
+        images = [Image.open(os.path.join(screenshot_folder, img)) for img in grid_images]
         min_width = min(img.width for img in images)
         min_height = min(img.height for img in images)
         images = [img.resize((min_width, min_height)) for img in images]
@@ -42,12 +49,13 @@ def create_overlapping_grids(input_folder, output_folder, grid_size=(3, 3), over
             grid_image.paste(black_img, (col * min_width, row * min_height))
 
         # Save the grid image
-        output_path = os.path.join(output_folder, f'grid_{start_index:03d}_{end_index:03d}.png')
+        output_path = os.path.join(grid_folder, f'grid_{start_index:03d}_{end_index:03d}.png')
         grid_image.save(output_path)
 
     print(f"Created grid images covering all {len(image_files)} input images.")
 
-# Example usage
-input_folder = "C:/Users/nicol/Downloads/Gen48/The Room/Screenshots"
-output_folder = "C:/Users/nicol/Downloads/Gen48/The Room/Grids2"
-create_overlapping_grids(input_folder, output_folder, grid_size=(3, 3), overlap=4)
+
+
+
+# Set the grid size and overlap images
+create_overlapping_grids(screenshot_folder, grid_folder, grid_size=(3, 3), overlap=4)
