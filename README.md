@@ -13,7 +13,7 @@ The purpose of this tool is to take screenshots of a short film and analyze it w
 **Step 3**: Because many models have limitations of the number of pictures you can submit in each request, we can combine a number of pictures into one grid-like picture in *image_grids.py*. The default setting is 3 by 3. If you want to analzye the grid pictures one by one and would like to choose a number of overlapping pictures, it is also possible to adjust it in the file.
 
 <div align="center">
-<img src="Assets/grid_009_018.png" width="600">
+<img src="Assets/grid_144_153.png" width="600">
 </div>
 
 **Step 4**: Finally, you can adjust the prompt to analyze the all the grid-like pictures in *analyzer1.py*.

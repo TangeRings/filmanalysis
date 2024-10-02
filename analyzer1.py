@@ -10,7 +10,6 @@ api_key = os.getenv("OPENAI_API_KEY")
 grid_path = os.getenv("GRID_PATH")
 
 
-
 client = OpenAI(api_key=api_key)
 
 def encode_image(image_path):
@@ -29,7 +28,7 @@ def analyze_grid_pictures(grid_path):
         messages = [
             {
                 "role": "system",
-                "content": "You are a video analyst. Given grid pictures representing video frames, provide a description of what happens in the video. Focus on visual themes, color palettes, character positioning, scene transitions, and symbolic elements. Respond in text, no markup."
+                "content": "You are professional film production professor. Given grid pictures representing video frames, provide a description of what happens in the video. Focus on visual themes, color palettes, character positioning, scene transitions, and symbolic elements for each scene. Respond in text, no markup."
             },
             {
                 "role": "user",
